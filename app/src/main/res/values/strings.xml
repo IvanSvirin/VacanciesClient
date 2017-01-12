@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">VacanciesClient</string>
+    <string name="vacancies">Vacancies</string>
+    <string name="details">Vacancy details</string>
+    <string name="details_btn">Показать</string>
+    <string name="no_salary">зарплата не указана</string>
+    <string name="from">"от "</string>
+    <string name="education">"Образование "</string>
+    <string name="experience">" и стаж работы "</string>
+    <string name="no_important">не важно</string>
+    <string name="no_value">не имеет значения</string>
+    <string name="in">" в "</string>
+    <string name="contacts">Контакты</string>
+    <string-array name="months">
+        <item>" января "</item>
+        <item>" февраля "</item>
+        <item>" марта "</item>
+        <item>" апреля "</item>
+        <item>" мая "</item>
+        <item>" июня "</item>
+        <item>" июля "</item>
+        <item>" августа "</item>
+        <item>" сентября "</item>
+        <item>" октября "</item>
+        <item>" ноября "</item>
+        <item>" декабря "</item>
+    </string-array>
+</resources>
