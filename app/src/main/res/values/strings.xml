@@ -11,6 +11,10 @@
     <string name="no_value">не имеет значения</string>
     <string name="in">" в "</string>
     <string name="contacts">Контакты</string>
+    <string name="show_on_map">на карте</string>
+    <string name="geo">geo:</string>
+    <string name="comma">,</string>
+    <string name="no_data">Нет данных</string>
     <string-array name="months">
         <item>" января "</item>
         <item>" февраля "</item>

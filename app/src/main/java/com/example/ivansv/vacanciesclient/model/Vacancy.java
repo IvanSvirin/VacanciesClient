@@ -51,9 +51,8 @@ public class Vacancy {
     private CompanyOwner owner;
 
     public Vacancy(long id, String header, int salaryMin, int salaryMax, SalaryCurrency currency, Education education,
-                   Experience experience, WorkingType workingType, WorkSchedule schedule, Publication publication, String userType,
-                   String description, Contact contact, Company company, CompanyOwner owner)
-    {
+                   Experience experience, WorkingType workingType, WorkSchedule schedule, Publication publication,
+                   String userType, String description, Contact contact, Company company, CompanyOwner owner) {
         this.id = id;
         this.header = header;
         this.salaryMin = salaryMin;

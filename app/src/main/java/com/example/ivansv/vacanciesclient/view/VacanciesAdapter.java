@@ -42,11 +42,15 @@ public class VacanciesAdapter extends RecyclerView.Adapter<VacanciesAdapter.Vaca
     public void onBindViewHolder(VacanciesViewHolder holder, int position) {
         holder.title.setText(vacancies.get(position).getHeader());
         holder.companyTitle.setText(vacancies.get(position).getCompany().getTitle());
-        String date = vacancies.get(position).getPublication().getPublishedAt();
-        showedDate = date.substring(8, 10)
-                .concat(context.getResources().getStringArray(R.array.months)[Integer.parseInt(date.substring(5, 7)) - 1])
-                .concat(context.getString(R.string.in)).concat(date.substring(11, 16));
-        holder.publishedAt.setText(showedDate);
+        if (vacancies.get(position).getPublication() != null) {
+            String date = vacancies.get(position).getPublication().getPublishedAt();
+            showedDate = date.substring(8, 10)
+                    .concat(context.getResources().getStringArray(R.array.months)[Integer.parseInt(date.substring(5, 7)) - 1])
+                    .concat(context.getString(R.string.in)).concat(date.substring(11, 16));
+            holder.publishedAt.setText(showedDate);
+        } else {
+            showedDate = "empty";
+        }
         holder.address.setText(vacancies.get(position).getContact().getAddress());
         if (vacancies.get(position).getSalaryMin() == 0 && vacancies.get(position).getSalaryMax() == 0) {
             showedSalary = context.getString(R.string.no_salary);
@@ -101,8 +105,16 @@ public class VacanciesAdapter extends RecyclerView.Adapter<VacanciesAdapter.Vaca
             intent.putExtra("published_at", showedDate);
             intent.putExtra("address", vacancies.get(getAdapterPosition()).getContact().getAddress());
             intent.putExtra("salary", showedSalary);
-            intent.putExtra("working_type", vacancies.get(getAdapterPosition()).getWorkingType().getTitle());
-            intent.putExtra("schedule", vacancies.get(getAdapterPosition()).getSchedule().getTitle());
+            if (vacancies.get(getAdapterPosition()).getWorkingType() != null) {
+                intent.putExtra("working_type", vacancies.get(getAdapterPosition()).getWorkingType().getTitle());
+            } else {
+                intent.putExtra("working_type", "empty");
+            }
+            if (vacancies.get(getAdapterPosition()).getSchedule() != null) {
+                intent.putExtra("schedule", vacancies.get(getAdapterPosition()).getSchedule().getTitle());
+            } else {
+                intent.putExtra("schedule", "empty");
+            }
             if (vacancies.get(getAdapterPosition()).getCompany().getLogo() != null) {
                 intent.putExtra("logo_url", vacancies.get(getAdapterPosition()).getCompany().getLogo().getUrl());
             } else {
@@ -131,6 +143,12 @@ public class VacanciesAdapter extends RecyclerView.Adapter<VacanciesAdapter.Vaca
             }
             intent.putExtra("contact_url", vacancies.get(getAdapterPosition()).getContact().getUrl());
             intent.putExtra("contact_name", vacancies.get(getAdapterPosition()).getContact().getName());
+            if(vacancies.get(getAdapterPosition()).getContact().getCoordinate() != null) {
+                intent.putExtra("lat", String.valueOf(vacancies.get(getAdapterPosition()).getContact().getCoordinate().getLat()));
+                intent.putExtra("lon", String.valueOf(vacancies.get(getAdapterPosition()).getContact().getCoordinate().getLon()));
+            } else {
+                intent.putExtra("lat", "empty");
+            }
             context.startActivity(intent);
         }
 
