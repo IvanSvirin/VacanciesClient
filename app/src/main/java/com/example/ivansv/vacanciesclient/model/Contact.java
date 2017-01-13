@@ -34,9 +34,12 @@ public class Contact {
     @SerializedName("district")
     @Expose
     private District district;
+    @SerializedName("coordinate")
+    @Expose
+    private Coordinate coordinate;
 
-    public Contact(String skype, String email, String url, String street, String building, String name, City city,
-                   String address, Subway subway, District district) {
+    public Contact(String skype, String email, String url, String street, String building, String name, City city, String address,
+                   Subway subway, District district, Coordinate coordinate) {
         this.skype = skype;
         this.email = email;
         this.url = url;
@@ -47,6 +50,7 @@ public class Contact {
         this.address = address;
         this.subway = subway;
         this.district = district;
+        this.coordinate = coordinate;
     }
 
     public String getSkype() {
@@ -127,5 +131,13 @@ public class Contact {
 
     public void setDistrict(District district) {
         this.district = district;
+    }
+
+    public Coordinate getCoordinate() {
+        return coordinate;
+    }
+
+    public void setCoordinate(Coordinate coordinate) {
+        this.coordinate = coordinate;
     }
 }

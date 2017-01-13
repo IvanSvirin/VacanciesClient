@@ -113,6 +113,17 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
 
+            <Button
+                android:text="@string/show_on_map"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/tv_schedule"
+                android:layout_toRightOf="@+id/tv_address"
+                android:layout_toEndOf="@+id/tv_address"
+                android:layout_marginLeft="24dp"
+                android:layout_marginStart="24dp"
+                android:id="@+id/btn_show_map" />
+
         </RelativeLayout>
             <LinearLayout
                 android:layout_width="match_parent"
