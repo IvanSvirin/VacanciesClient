@@ -3,7 +3,9 @@ package com.example.ivansv.vacanciesclient.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Education {
+import java.io.Serializable;
+
+public class Education implements Serializable {
     @SerializedName("id")
     @Expose
     private long id;

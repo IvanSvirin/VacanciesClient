@@ -3,7 +3,9 @@ package com.example.ivansv.vacanciesclient.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Contact {
+import java.io.Serializable;
+
+public class Contact implements Serializable {
     @SerializedName("skype")
     @Expose
     private String skype;

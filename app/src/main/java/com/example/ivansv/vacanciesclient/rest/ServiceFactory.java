@@ -6,12 +6,10 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ServiceFactory
-{
+public class ServiceFactory {
     public static final String API_BASE_URL = "http://rabota.ngs.ru/api/v1/";
 
-    public static <S> S createRetrofitService(Class<S> serviceClass)
-    {
+    public static <S> S createRetrofitService(Class<S> serviceClass) {
         Retrofit.Builder builder =
                 new Retrofit.Builder()
                         .baseUrl(API_BASE_URL)
