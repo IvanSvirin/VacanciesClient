@@ -49,7 +49,7 @@ public class VacanciesAdapter extends RecyclerView.Adapter<VacanciesAdapter.Vaca
                     .concat(context.getString(R.string.in)).concat(date.substring(11, 16));
             holder.publishedAt.setText(showedDate);
         } else {
-            showedDate = "empty";
+            showedDate = "";
         }
         holder.address.setText(vacancies.get(position).getContact().getAddress());
         if (vacancies.get(position).getSalaryMin() == 0 && vacancies.get(position).getSalaryMax() == 0) {
@@ -100,55 +100,9 @@ public class VacanciesAdapter extends RecyclerView.Adapter<VacanciesAdapter.Vaca
         @OnClick(R.id.btn_details)
         public void details() {
             Intent intent = new Intent(context, DetailsActivity.class);
-            intent.putExtra("title", vacancies.get(getAdapterPosition()).getHeader());
-            intent.putExtra("company_title", vacancies.get(getAdapterPosition()).getCompany().getTitle());
-            intent.putExtra("published_at", showedDate);
-            intent.putExtra("address", vacancies.get(getAdapterPosition()).getContact().getAddress());
-            intent.putExtra("salary", showedSalary);
-            if (vacancies.get(getAdapterPosition()).getWorkingType() != null) {
-                intent.putExtra("working_type", vacancies.get(getAdapterPosition()).getWorkingType().getTitle());
-            } else {
-                intent.putExtra("working_type", "empty");
-            }
-            if (vacancies.get(getAdapterPosition()).getSchedule() != null) {
-                intent.putExtra("schedule", vacancies.get(getAdapterPosition()).getSchedule().getTitle());
-            } else {
-                intent.putExtra("schedule", "empty");
-            }
-            if (vacancies.get(getAdapterPosition()).getCompany().getLogo() != null) {
-                intent.putExtra("logo_url", vacancies.get(getAdapterPosition()).getCompany().getLogo().getUrl());
-            } else {
-                intent.putExtra("logo_url", "empty");
-            }
-            intent.putExtra("description", vacancies.get(getAdapterPosition()).getDescription());
-            if (vacancies.get(getAdapterPosition()).getEducation() == null
-                    && vacancies.get(getAdapterPosition()).getExperience() == null) {
-                intent.putExtra("education_experience", (context.getString(R.string.education)
-                        .concat(context.getString(R.string.no_important)).concat(context.getString(R.string.experience))
-                        .concat(context.getString(R.string.no_value))));
-            } else if (vacancies.get(getAdapterPosition()).getEducation() == null) {
-                intent.putExtra("education_experience", (context.getString(R.string.education)
-                        .concat(context.getString(R.string.no_important)).concat(context.getString(R.string.experience))
-                        .concat(vacancies.get(getAdapterPosition()).getExperience().getTitle())));
-            } else if (vacancies.get(getAdapterPosition()).getExperience() == null) {
-                intent.putExtra("education_experience", (context.getString(R.string.education)
-                        .concat(vacancies.get(getAdapterPosition()).getEducation().getTitle())
-                        .concat(context.getString(R.string.experience))
-                        .concat(context.getString(R.string.no_value))));
-            } else {
-                intent.putExtra("education_experience", (context.getString(R.string.education)
-                        .concat(vacancies.get(getAdapterPosition()).getEducation().getTitle())
-                        .concat(context.getString(R.string.experience))
-                        .concat(vacancies.get(getAdapterPosition()).getExperience().getTitle())));
-            }
-            intent.putExtra("contact_url", vacancies.get(getAdapterPosition()).getContact().getUrl());
-            intent.putExtra("contact_name", vacancies.get(getAdapterPosition()).getContact().getName());
-            if(vacancies.get(getAdapterPosition()).getContact().getCoordinate() != null) {
-                intent.putExtra("lat", String.valueOf(vacancies.get(getAdapterPosition()).getContact().getCoordinate().getLat()));
-                intent.putExtra("lon", String.valueOf(vacancies.get(getAdapterPosition()).getContact().getCoordinate().getLon()));
-            } else {
-                intent.putExtra("lat", "empty");
-            }
+            intent.putExtra("vacancy", vacancies.get(getAdapterPosition()));
+            intent.putExtra("showed_date", showedDate);
+            intent.putExtra("showed_salary", showedSalary);
             context.startActivity(intent);
         }
 

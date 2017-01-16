@@ -3,7 +3,9 @@ package com.example.ivansv.vacanciesclient.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Publication {
+import java.io.Serializable;
+
+public class Publication implements Serializable {
     @SerializedName("published_at")
     @Expose
     private String publishedAt;

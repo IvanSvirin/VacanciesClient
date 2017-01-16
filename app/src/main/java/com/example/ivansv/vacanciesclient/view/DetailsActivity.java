@@ -10,13 +10,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ivansv.vacanciesclient.R;
+import com.example.ivansv.vacanciesclient.model.Vacancy;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class DetailsActivity extends AppCompatActivity{
+public class DetailsActivity extends AppCompatActivity {
     @BindView(R.id.tv_title)
     public TextView title;
     @BindView(R.id.tv_company_title)
@@ -42,6 +43,9 @@ public class DetailsActivity extends AppCompatActivity{
     @BindView(R.id.iv_logo)
     public ImageView logo;
     private Picasso picasso;
+    private Vacancy vacancy;
+    private String date;
+    private String salaryValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,38 +54,52 @@ public class DetailsActivity extends AppCompatActivity{
 
         ButterKnife.bind(this);
         picasso = Picasso.with(this);
+        vacancy = (Vacancy) getIntent().getSerializableExtra("vacancy");
+        date = getIntent().getStringExtra("showed_date");
+        salaryValue = getIntent().getStringExtra("showed_salary");
         setValues();
     }
 
     private void setValues() {
-        title.setText(getIntent().getStringExtra("title"));
-        companyTitle.setText(getIntent().getStringExtra("company_title"));
-        if (!getIntent().getStringExtra("published_at").equals("empty")) {
-            publishedAt.setText(getIntent().getStringExtra("published_at"));
+        title.setText(vacancy.getHeader());
+        companyTitle.setText(vacancy.getCompany().getTitle());
+        publishedAt.setText(date);
+        address.setText(vacancy.getContact().getAddress());
+        salary.setText(salaryValue);
+        if (vacancy.getWorkingType() != null) {
+            workingType.setText(vacancy.getWorkingType().getTitle());
         }
-        address.setText(getIntent().getStringExtra("address"));
-        salary.setText(getIntent().getStringExtra("salary"));
-        if (!getIntent().getStringExtra("working_type").equals("empty")) {
-            workingType.setText(getIntent().getStringExtra("working_type"));
+        if (vacancy.getSchedule() != null) {
+            schedule.setText(vacancy.getSchedule().getTitle());
         }
-        if (!getIntent().getStringExtra("schedule").equals("empty")) {
-            schedule.setText(getIntent().getStringExtra("schedule"));
+        description.setText(Html.fromHtml(vacancy.getDescription()));
+        if (vacancy.getEducation() == null && vacancy.getExperience() == null) {
+            educationExperience.setText(getString(R.string.education)
+                    .concat(getString(R.string.no_important)).concat(getString(R.string.experience)).concat(getString(R.string.no_value)));
+        } else if (vacancy.getEducation() == null) {
+            educationExperience.setText(getString(R.string.education)
+                    .concat(getString(R.string.no_important)).concat(getString(R.string.experience))
+                    .concat(vacancy.getExperience().getTitle()));
+        } else if (vacancy.getExperience() == null) {
+            educationExperience.setText(getString(R.string.education).concat(vacancy.getEducation().getTitle())
+                    .concat(getString(R.string.experience)).concat(getString(R.string.no_value)));
+        } else {
+            educationExperience.setText(getString(R.string.education).concat(vacancy.getEducation().getTitle())
+                    .concat(getString(R.string.experience)).concat(vacancy.getExperience().getTitle()));
         }
-        description.setText(Html.fromHtml(getIntent().getStringExtra("description")));
-        educationExperience.setText(getIntent().getStringExtra("education_experience"));
-        contactName.setText(getIntent().getStringExtra("contact_name"));
-        contactUrl.setText(getIntent().getStringExtra("contact_url"));
-        if (!getIntent().getStringExtra("logo_url").equals("empty")) {
+        contactName.setText(vacancy.getContact().getName());
+        contactUrl.setText(vacancy.getContact().getUrl());
+        if (vacancy.getCompany().getLogo() != null) {
             picasso.load(getIntent().getStringExtra("logo_url")).into(logo);
         }
     }
 
     @OnClick(R.id.btn_show_map)
     public void showMap() {
-        if (!getIntent().getStringExtra("lat").equals("empty")) {
-            String geo = getString(R.string.geo).concat(getIntent().getStringExtra("lat")).concat(getString(R.string.comma))
-                    .concat(getIntent().getStringExtra("lon"))
-                    .concat("?q=").concat(getIntent().getStringExtra("address"));
+        if (vacancy.getContact().getCoordinate() != null) {
+            String geo = getString(R.string.geo).concat(String.valueOf(vacancy.getContact().getCoordinate().getLat())).concat(getString(R.string.comma))
+                    .concat(String.valueOf(vacancy.getContact().getCoordinate().getLon()))
+                    .concat("?q=").concat(vacancy.getContact().getAddress());
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(geo));
             this.startActivity(intent);
         } else {
